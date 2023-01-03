@@ -1,0 +1,11 @@
+{
+  "name": "mh-autosaver",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/main.js",
+  "scripts": {
+    "start": "tsc && node ."
+  },
+  "author": "Kensa",
+  "license": "ISC"
+}
