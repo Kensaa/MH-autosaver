@@ -44,6 +44,7 @@ for(const weirdFolder of fs.readdirSync(config.steamLocation)){
         if(!fs.existsSync(path.join(config.steamLocation, weirdFolder, id))) continue
         //game exists in steam folder
         //copy it to save folder
+        console.log('game : '+name)
         const saveFolder = path.join(config.saveLocation, dayString)
         checkFolder(saveFolder)
         const gameSaveFolder = path.join(saveFolder, name)
@@ -61,12 +62,10 @@ function copyFolder(from: string, to: string) {
     for (const file of fs.readdirSync(from)) {
         const fromPath = path.join(from, file)
         const toPath = path.join(to, file)
-        console.log('file : ' + fromPath + ' to ' + toPath)
-        console.log(fs.statSync(fromPath).isDirectory() ? 'is dir' : 'is file')
-        console.log()
         if(fs.statSync(fromPath).isDirectory()){
             copyFolder(fromPath, toPath)
         }else {
+            console.log('\tcopying : '+file)
             fs.copyFileSync(fromPath, toPath)
         }
     }
