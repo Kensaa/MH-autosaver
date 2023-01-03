@@ -7,18 +7,20 @@ const softwareFolder = os.platform() === 'win32' ? path.join(homeFolder, 'AppDat
 const steamFolder = os.platform() === 'win32' ? path.join('C:', 'Program Files (x86)', 'Steam', 'userdata') : path.join(homeFolder, '.steam', 'steam', 'userdata')
 const configPath = path.join(softwareFolder, 'config.json')
 
-const defaultConfig: Config = {
+checkFolder(softwareFolder)
+
+const defaultConfig = {
     saveLocation: path.join(softwareFolder, 'saves'),
-    steamLocation: steamFolder
+    steamLocation: steamFolder,
+    disabledGames: [] as string[],
 }
 
-checkFolder(softwareFolder)
-let config: Config;
+let config: typeof defaultConfig;
 if (!fs.existsSync(configPath)) {
     fs.writeFileSync(configPath, JSON.stringify(defaultConfig, null, 4))
     config = defaultConfig
 } else {
-    config = JSON.parse(fs.readFileSync(configPath, 'utf8')) as Config
+    config = JSON.parse(fs.readFileSync(configPath, 'utf8')) as typeof defaultConfig
 }
 
 checkFolder(config.saveLocation)
@@ -41,6 +43,7 @@ for(const weirdFolder of fs.readdirSync(config.steamLocation)){
     //if file is not a folder, skip
     if(!fs.statSync(path.join(config.steamLocation, weirdFolder)).isDirectory()) continue
     for(const [name, id] of Object.entries(gameID)){
+        if(config.disabledGames.includes(name)) continue
         if(!fs.existsSync(path.join(config.steamLocation, weirdFolder, id))) continue
         //game exists in steam folder
         //copy it to save folder
@@ -55,10 +58,7 @@ for(const weirdFolder of fs.readdirSync(config.steamLocation)){
 
 function copyFolder(from: string, to: string) {
     if(!fs.existsSync(from)) return
-    if (!fs.existsSync(to)) {
-        fs.mkdirSync(to)
-    }
-    
+    if (!fs.existsSync(to)) fs.mkdirSync(to)
     for (const file of fs.readdirSync(from)) {
         const fromPath = path.join(from, file)
         const toPath = path.join(to, file)
