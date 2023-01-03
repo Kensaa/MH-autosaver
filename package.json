@@ -4,8 +4,13 @@
   "description": "",
   "main": "dist/main.js",
   "scripts": {
-    "start": "tsc && node ."
+    "start": "tsc && node .",
+    "build": "tsc && pkg -t node18-win-x64 --out-path release/ dist/main.js && mv release/main.exe release/mh-autosaver.exe"
   },
   "author": "Kensa",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^18.11.18",
+    "pkg": "^5.8.0"
+  }
 }
