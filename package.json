@@ -1,16 +1,29 @@
 {
-  "name": "mh-autosaver",
-  "version": "1.0.0",
-  "description": "",
-  "main": "dist/main.js",
-  "scripts": {
-    "start": "tsc && node .",
-    "build": "tsc && pkg -t node18-win-x64 --out-path release/ dist/main.js && mv release/main.exe release/mh-autosaver.exe"
-  },
-  "author": "Kensa",
-  "license": "ISC",
-  "devDependencies": {
-    "@types/node": "^18.11.18",
-    "pkg": "^5.8.0"
-  }
+    "name": "mh-autosaver",
+    "version": "1.0.0",
+    "description": "",
+    "main": "dist/main.js",
+    "bin": "dist/main.js",
+    "scripts": {
+        "start": "tsc && node .",
+        "build": "tsc && pkg . && sleep 3 && create-nodew-exe release/mh-autosaver.exe release/mh-autosaver.exe"
+    },
+    "author": "Kensa",
+    "license": "ISC",
+    "dependencies": {
+        "archiver": "^6.0.1"
+    },
+    "devDependencies": {
+        "@types/archiver": "^6.0.2",
+        "@types/node": "^18.11.18",
+        "create-nodew-exe": "^1.0.10",
+        "pkg": "^5.8.1",
+        "typescript": "^5.3.3"
+    },
+    "pkg": {
+        "outputPath": "release",
+        "targets": [
+            "node18-win-x64"
+        ]
+    }
 }
