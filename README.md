@@ -12,8 +12,8 @@ A little software used to autosave Monster Hunter saves because steam cloud is k
 -   Download the latest binary from the [release](https://github.com/Kensaa/MH-autosaver/releases/latest) page.
 -   place it wherever you want, the location will be refered as `[binary_folder]`
 -   open steam, right-click on the Monster Hunter game you want to autosave and click `Properties`
--   Change `Launch Options` to `[binary_folder]\mh-autosaver.exe %command%` \
-    for exemple, if you placed the binary in `C:\Games`, the Launch Options will be `C:\Games\mh-autosaver.exe %command%`
+-   Change `Launch Options` to `[binary_folder]\mh-autosaver-win.exe %command%` \
+    for exemple, if you placed the binary in `C:\Games`, the Launch Options will be `C:\Games\mh-autosaver-win.exe %command%`
 
 Note: if you are using this on Linux, don't forget to replace `\` by `/`
 
