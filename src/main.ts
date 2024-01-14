@@ -7,8 +7,8 @@ import { spawn } from 'child_process'
 const homeFolder = os.homedir()
 const saveFolder =
     os.platform() === 'win32'
-        ? path.join(homeFolder, 'AppData', 'Roaming', 'mh-autosave')
-        : path.join(homeFolder, '.mh-autosave')
+        ? path.join(homeFolder, 'AppData', 'Roaming', 'mh-autosaver')
+        : path.join(homeFolder, '.mh-autosaver')
 
 const steamFolder =
     os.platform() === 'win32'
@@ -22,8 +22,7 @@ checkFolder(path.join(saveFolder, 'saves'))
 
 const defaultConfig = {
     saveLocation: path.join(saveFolder, 'saves'),
-    steamLocation: steamFolder,
-    disabledGames: [] as string[]
+    steamLocation: steamFolder
 }
 type Config = typeof defaultConfig
 
@@ -76,10 +75,6 @@ spawn(executable, cmdArgs).on('close', async () => {
 
     if (!game) {
         process.exit(1)
-    }
-
-    if (config.disabledGames.includes(game.id)) {
-        process.exit(0)
     }
 
     const gameFolder = gameFolders[game.id]
